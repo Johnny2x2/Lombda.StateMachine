@@ -4,6 +4,28 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Title>Lombda State Machine</Title>
+    <Authors>Johnny2x2</Authors>
+    <Description>Lightweight State Machine</Description>
+    <PackageProjectUrl>https://github.com/Johnny2x2/Lombda.StateMachine</PackageProjectUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/Johnny2x2/Lombda.StateMachine</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>statemachine; basic; stateless; AI; Agents; Lombda;</PackageTags>
+    <Copyright>MIT</Copyright>
+    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\LICENSE.txt">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
 </Project>

@@ -351,7 +351,7 @@ namespace Lombda.StateMachine
         /// <returns>A task representing the asynchronous operation, containing a list of <see cref="StateResult{TOutput}"/>
         /// objects that represent the results of processing each input.</returns>
         /// <exception cref="InvalidOperationException">Thrown if no input processes are defined for the state.</exception>
-        public override async Task _Invoke()
+        public override async Task<List<StateResult<TOutput>>> _Invoke()
         {
             if (InputProcesses.Count == 0)
                 throw new InvalidOperationException($"Input Process is required on State {this.GetType()}");
@@ -378,6 +378,8 @@ namespace Lombda.StateMachine
             WasInvoked = true;
 
             OutputResults = oResults.ToList();
+
+            return OutputResults;
         }
 
         /// <summary>
