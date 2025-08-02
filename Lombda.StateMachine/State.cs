@@ -351,7 +351,7 @@ namespace Lombda.StateMachine
         /// <returns>A task representing the asynchronous operation, containing a list of <see cref="StateResult{TOutput}"/>
         /// objects that represent the results of processing each input.</returns>
         /// <exception cref="InvalidOperationException">Thrown if no input processes are defined for the state.</exception>
-        public override async Task<List<StateResult<TOutput>>> _Invoke()
+        public override async Task _Invoke()
         {
             if (InputProcesses.Count == 0)
                 throw new InvalidOperationException($"Input Process is required on State {this.GetType()}");
@@ -378,8 +378,6 @@ namespace Lombda.StateMachine
             WasInvoked = true;
 
             OutputResults = oResults.ToList();
-
-            return OutputResults;
         }
 
         /// <summary>
@@ -434,7 +432,7 @@ namespace Lombda.StateMachine
                     //Check if transition is convertion type or use the output.Result directly
                     var oresult = transition.type == "in_out" ? transition._ConverterMethodResult : result.Result;
 
-                    newStateProcesses.Add(new StateProcess(transition.NextState, oresult));
+                    newStateProcesses.Add(new StateProcess(transition.NextState, oresult!));
                 }
                 else
                 {
@@ -478,7 +476,7 @@ namespace Lombda.StateMachine
                         //Check if transition is convertion type or use the output.Result directly
                         var result = transition.type == "in_out" ? transition._ConverterMethodResult : output.Result;
 
-                        newStateProcessesFromOutput.Add(new StateProcess(transition.NextState, result));
+                        newStateProcessesFromOutput.Add(new StateProcess(transition.NextState, result!));
                     }
                 });
 
@@ -567,10 +565,15 @@ namespace Lombda.StateMachine
     /// </summary>
     public class ExitState : BaseState<object, object>
     {
-        public override async Task<object> Invoke(object input)
+        public override Task<object> Invoke(object input)
         {
-            CurrentStateMachine.Finish();
-            return input; //Forced to use BaseState<object, object> because of the Task not returning in order
+            CurrentStateMachine?.Finish();
+            return Task.FromResult(input); //Forced to use BaseState<object, object> because of the Task not returning in order
+        }
+
+        public override List<StateProcess>? CheckConditions()
+        {
+            return null; // Terminal state
         }
     }
 
@@ -586,9 +589,14 @@ namespace Lombda.StateMachine
             Transitioned = true;
         }
 
-        public override async Task<object> Invoke(object input)
+        public override Task<object> Invoke(object input)
         {
-            return input; //Forced to use BaseState<object, object> because of the Task not returning in order
+            return Task.FromResult(input); //Forced to use BaseState<object, object> because of the Task not returning in order
+        }
+
+        public override List<StateProcess>? CheckConditions()
+        {
+            return null; // Dead end state
         }
     }
 }

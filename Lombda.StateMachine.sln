@@ -5,6 +5,8 @@ VisualStudioVersion = 17.14.36212.18 d17.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lombda.StateMachine", "Lombda.StateMachine\Lombda.StateMachine.csproj", "{CFD17816-D756-42E0-94D4-1AA37572E9E1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lombda.StateMachine.Tests", "Lombda.StateMachine.Tests\Lombda.StateMachine.Tests.csproj", "{B8C8A1A2-8B4C-4D5E-9F6A-1B2C3D4E5F60}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{CFD17816-D756-42E0-94D4-1AA37572E9E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CFD17816-D756-42E0-94D4-1AA37572E9E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CFD17816-D756-42E0-94D4-1AA37572E9E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8C8A1A2-8B4C-4D5E-9F6A-1B2C3D4E5F60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8C8A1A2-8B4C-4D5E-9F6A-1B2C3D4E5F60}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8C8A1A2-8B4C-4D5E-9F6A-1B2C3D4E5F60}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8C8A1A2-8B4C-4D5E-9F6A-1B2C3D4E5F60}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
