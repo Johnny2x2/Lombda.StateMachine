@@ -1,6 +1,6 @@
 # Lombda.StateMachine
 
-A powerful and flexible state machine library for .NET 8.0 that supports concurrent execution, complex state transitions, and type-safe operations. This library provides both generic and non-generic state machine implementations with extensive event handling and logging capabilities.
+A powerful and flexible state machine library for C# that supports concurrent execution, complex state transitions, and type-safe operations. This library provides both generic and non-generic state machine implementations with extensive event handling and logging capabilities.
 
 ## Features
 
@@ -8,7 +8,6 @@ A powerful and flexible state machine library for .NET 8.0 that supports concurr
 - **Concurrent Execution**: Built-in thread management with configurable thread limits
 - **Flexible State Transitions**: Conditional state transitions with support for data transformation
 - **Event-Driven Architecture**: Comprehensive event system for monitoring state machine execution
-- **Lambda State Support**: Easy integration of lambda functions as states
 - **Cancellation Support**: Graceful cancellation and cleanup mechanisms
 - **Runtime Properties**: Persistent storage for state machine runtime data
 - **Step Recording**: Optional execution step recording for debugging and analysis
@@ -16,7 +15,9 @@ A powerful and flexible state machine library for .NET 8.0 that supports concurr
 
 ## Installation
 
-Add the project reference to your solution or include the source files directly in your project.
+```bash
+dotnet add package Lombda.StateMachine
+```
 
 ## Quick Start
 
@@ -26,7 +27,7 @@ States essentially transforms the Input into the Output
 
 Where `FooState : BaseState<InputType, OutputType>`
 
-Invoke(InputType input) Must Return the Output Type (Strongly Typed)
+`Invoke(InputType input)` Must Return the `OutputType` (Strongly Typed)
 
 You can only Transition to a state where the Output of the current state is the Input to the next state
 ```csharp
@@ -39,7 +40,7 @@ class ConvertStringToIntState : BaseState<string, int>
 }
 ```
 
-You can build pipelines of states and let the agent transition between them based on the results.
+## You can build pipelines of states
 
 ### Creating State Machines With Input & Output Types
 ```csharp
@@ -180,7 +181,8 @@ When contributing to this project:
 This project is available under the terms specified in the project license.
 
 ## Changelog
-
+### Version 1.0.1
+- AI Generated Test messed up My State Class.. needed to restore.
 ### Version 1.0.0
 - Initial release with core state machine functionality
 - Generic and non-generic implementations
