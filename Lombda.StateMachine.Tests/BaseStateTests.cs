@@ -158,7 +158,7 @@ namespace Lombda.StateMachine.Tests
 
             // Act & Assert
             Assert.That(state.IsDeadEnd, Is.True);
-            Assert.That(state.CheckConditions(), Is.Null);
+            Assert.That(state.CheckConditions(), Is.Empty);
         }
 
         [Test]

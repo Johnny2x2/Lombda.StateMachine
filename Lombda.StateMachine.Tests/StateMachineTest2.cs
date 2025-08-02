@@ -1,4 +1,6 @@
-﻿using LombdaAgentSDK.StateMachine;
+﻿
+using Lombda.StateMachine;
+using NUnit.Framework;
 
 namespace Test
 {
