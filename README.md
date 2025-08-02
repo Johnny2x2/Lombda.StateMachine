@@ -62,7 +62,7 @@ List<int> stateResults = await stateMachine.Run("3");---
 //AllowsParallelTransitions = true Allows state Outputs to transition to all states that meet the criteria
 ConvertStringToIntState inputState = new() { AllowsParallelTransitions = true };
 
-IntPlus3State state3 = new();
+IntPlus3State state3 = new() { IsDeadEnd = True};
 IntPlus4State state4 = new();
 
 //CombineInput = true only does 1 execution reguardless of # of Inputs
@@ -74,8 +74,8 @@ ConvertIntToStringState resultState = new();
 inputState.AddTransition(state3);
 inputState.AddTransition(state4);
 
-//summing State will get both results next tick
-state3.AddTransition(summingState);
+//summing State will get both results next tick if result from state3 is >3
+state3.AddTransition((result) => result > 3, summingState);
 state4.AddTransition(summingState);
 
 //Will sum all inputs 
