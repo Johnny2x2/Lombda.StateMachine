@@ -13,6 +13,7 @@ A powerful and flexible state machine library for .NET 8.0 that supports concurr
 - **Runtime Properties**: Persistent storage for state machine runtime data
 - **Step Recording**: Optional execution step recording for debugging and analysis
 - **Async/Await Support**: Full asynchronous operation support throughout the library
+- **🆕 State Machine Visualization**: Generate Graphviz DOT and PlantUML diagrams for visual documentation
 
 ## Installation
 
@@ -117,6 +118,71 @@ Console.WriteLine($"State Results: {string.Join(", ", stateResults.Select(r => s
 Assert.IsTrue(stateResults[0].Contains(3));
 ```
 
+## State Machine Visualization
+
+This library includes built-in support for generating visual diagrams of your state machines in two popular formats:
+
+### Graphviz DOT Format
+Generate professional diagrams using Graphviz:
+
+```csharp
+// Create and configure your state machine
+var stateMachine = new StateMachine<string, string>();
+// ... add states and transitions ...
+
+// Generate DOT format
+string dotGraph = stateMachine.ToDotGraph("MyStateMachine");
+Console.WriteLine(dotGraph);
+
+// Save to file and render
+await File.WriteAllTextAsync("statemachine.dot", dotGraph);
+// Render with: dot -Tpng statemachine.dot -o statemachine.png
+```
+
+### PlantUML Format
+Generate UML state diagrams using PlantUML:
+
+```csharp
+// Generate PlantUML format
+string plantUml = stateMachine.ToPlantUML("My State Machine");
+Console.WriteLine(plantUml);
+
+// Save to file and render
+await File.WriteAllTextAsync("statemachine.puml", plantUml);
+// Render online at: http://www.plantuml.com/plantuml/
+```
+
+### Example Output
+
+**Graphviz DOT:**
+```dot
+digraph MyStateMachine {
+    rankdir=LR;
+    node [shape=rectangle, style=filled, fillcolor=lightblue];
+
+    StartState [fillcolor=lightgreen, label="StartState\n(string → int)\n(Start)"];
+    ProcessState [fillcolor=lightblue, label="ProcessState\n(int → string)"];
+    EndState [fillcolor=lightcoral, label="EndState\n(string → string)\n(Result)"];
+    
+    StartState -> ProcessState [label="condition"];
+    ProcessState -> EndState [label="condition"];
+}
+```
+
+**PlantUML:**
+```plantuml
+@startuml
+title My State Machine
+
+[*] --> StartState
+StartState --> ProcessState : condition
+ProcessState --> EndState : condition
+EndState --> [*]
+@enduml
+```
+
+For complete visualization documentation, see [VISUALIZATION.md](VISUALIZATION.md).
+
 ## API Reference
 
 ### StateMachine Class
@@ -166,6 +232,18 @@ public class StateMachine<TInput, TOutput> : StateMachine
 }
 ```
 
+### Visualization Extensions
+```csharp
+public static class StateMachineVisualization
+{
+    // Extension methods for both StateMachine and StateMachine<TInput, TOutput>
+    public static string ToDotGraph(this StateMachine stateMachine, string graphName = "StateMachine");
+    public static string ToDotGraph<TInput, TOutput>(this StateMachine<TInput, TOutput> stateMachine, string graphName = "StateMachine");
+    public static string ToPlantUML(this StateMachine stateMachine, string title = "State Machine");
+    public static string ToPlantUML<TInput, TOutput>(this StateMachine<TInput, TOutput> stateMachine, string title = "State Machine");
+}
+```
+
 ## Contributing
 
 When contributing to this project:
@@ -180,6 +258,17 @@ When contributing to this project:
 This project is available under the terms specified in the project license.
 
 ## Changelog
+
+### Version 1.1.0
+- **🆕 State Machine Visualization**: Added support for generating Graphviz DOT and PlantUML diagrams
+- **New Features**:
+  - `ToDotGraph()` extension method for Graphviz DOT format generation
+  - `ToPlantUML()` extension method for PlantUML state diagram generation
+  - Automatic state coloring (start states, result states, dead-end states)
+  - Type information display in state labels
+  - Special character sanitization for diagram compatibility
+  - Support for complex state machines with multiple transitions
+- **Documentation**: Added comprehensive visualization guide and examples
 
 ### Version 1.0.0
 - Initial release with core state machine functionality
